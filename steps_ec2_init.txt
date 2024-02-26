@@ -13,7 +13,30 @@ sudo systemctl start docker.service
 docker build --pull --rm -f "DockerFile" -t apirestwa:latest "."
 -- Correr la imagen del docker con la exposicion del puerto que se va a utilizar para consumo del servicio---
 docker run --rm -d -p 3000:3000/tcp apirestwa:latest
+--- Conocer id de la imagen corriendo---
+docker container ls -a
+--- Visualiar logs de la imagen (servira para ver cuando un usuario se firme)---
+docker logs -f <id_imagen>
 
 --Pruebas (numero a 10 posiciones)--
+--METHOD: GET
 http://<ip_instancia_ec2>:<puerto_exposicion>/session?clientId=<numero_telefono>
---Una vez 
+--Al llamar al enpoint la respuesta sera el QR codificado--
+--Este codigo se debe reemplazar en el file example.html <respuesta_enpoint> y al mostrarse en el html se podra escanear desde el celular--
+--Nota pruebo este proceso asi ya que considero todo este flujo automatico debera estar en el front--
+--METHOD: POST
+http://<ip_instancia_ec2>:<puerto_exposicion>/envio
+--BODY: JSON
+{
+    "numero":"5215579221449",
+    "mensaje":"mensaje de prueba",
+    "type":"text"
+}
+
+
+--Comandos extras para dockers---
+--Parar la imagen--
+docker stop <id_imagen>
+--Eliminar imagen--
+docker rm <id_imagen>
+
