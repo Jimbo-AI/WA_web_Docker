@@ -1,4 +1,5 @@
-
+--Regla en el grupo de seguridad de la instancia--
+Se debe crear una regla en el grupo de seguridad TCP con el puerto que se utilizara para el consumo
 --actualizar librerias de la instancia EC2--
 sudo yum update
 --Clonar el repositorio donde se encuentra el codigo con el Docker--
