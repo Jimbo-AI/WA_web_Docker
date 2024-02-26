@@ -1,0 +1,19 @@
+
+--actualizar librerias de la instancia EC2--
+sudo yum update
+--Clonar el repositorio donde se encuentra el codigo con el Docker--
+git clone https://github.com/omarcini90/ApiRest_WA.git
+--Instalar Docker en la instancia EC2--
+sudo yum install docker
+--Activar Docker para la instancia ---
+sudo systemctl enable docker.service
+--Iniciar el servicio de Docker para la instancia--
+sudo systemctl start docker.service
+-- Crear la imagen con los cambios (Este paso se debe repatir cada que se actualiza el repo)--
+docker build --pull --rm -f "DockerFile" -t apirestwa:latest "."
+-- Correr la imagen del docker con la exposicion del puerto que se va a utilizar para consumo del servicio---
+docker run --rm -d -p 3000:3000/tcp apirestwa:latest
+
+--Pruebas (numero a 10 posiciones)--
+http://<ip_instancia_ec2>:<puerto_exposicion>/session?clientId=<numero_telefono>
+--Una vez 

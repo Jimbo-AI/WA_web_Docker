@@ -13,7 +13,6 @@ const envioController =(req, res) => {
         }
         // console.log(mensaje_out);
         const respuesta = enviarMensajeWSP(numero, mensaje_out);
-        console.log(respuesta);
         if (respuesta){
             res.send('Mensaje enviado');
         }else{
