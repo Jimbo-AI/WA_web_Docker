@@ -1,6 +1,6 @@
 const enviarMensajeRecibido=async (numero, mensaje)=>{
     try{
-        const URL='http://localhost:8080/webhook'
+        const URL='https://xjbxulvq7rxvpj357gitovanhe0qqxyk.lambda-url.us-east-1.on.aws/webhook/whatsapp_zero'
         const opciones={
             method:'POST',
             headers:{
