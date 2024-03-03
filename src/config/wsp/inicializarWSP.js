@@ -56,8 +56,10 @@ const inicializarWSP = async (clientId,res,flag_api) => {
   })
 
   clienteWSP.on('message', message => {
-    console.log('Mensaje recibido', message.from, message.body)
-    //enviarMensajeRecibido(message.from, message.body)
+    if (message.from!='status@broadcast'){
+      console.log('Mensaje recibido', message.from, message.body)
+      enviarMensajeRecibido(message.from, message.body)
+    }    
   })
   await clienteWSP.initialize()
 }
