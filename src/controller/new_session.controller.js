@@ -1,9 +1,15 @@
 const {inicializarWSP} = require('../config/wsp/inicializarWSP');
+const fs = require('fs');
+const path = require('path');
 
 const newSessionController =(req, res) => {
     const clientId = req.query['clientId'];
+    const customerID = req.query['customerID'];    
     try{          
-        initSession(req, res);                        
+        initSession(req, res);                 
+        const jsonSting = JSON.stringify({clientId:clientId, customerID:customerID});
+        const filePath = path.join(__dirname, '../templates/config.json');       
+        fs.writeFileSync(filePath, jsonSting);       
     }catch(error){
         const errorController= `Error al iniciar sesión`;
         console.error(errorController, error);
