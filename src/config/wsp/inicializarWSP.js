@@ -75,18 +75,30 @@ const enviarMensajeWSP = async (numero, mensaje) => {
 	}
 }
 
-// const destroyClient =() => {
-//   console.log('Destruyendo cliente')
-//   console.log(browser)
-//     if (clienteWSP!=null){
-//       clienteWSP.logout()
-//       clienteWSP.destroy()    
-//       flag_send = false 
-//     }   
-  
-// }
+const statusCheck = async () => {
+  try {
+    const estado = await clienteWSP.getState()
+    let response;
+    if (estado === 'CONNECTED') {
+      response = {
+        status: 'connected'
+      }
+      return response
+    }else{
+      response = {
+        status: 'disconnected'
+      }
+      return response
+    }
+  } catch (error) {
+    const mensajeError = `Error al obtener el estado del cliente`
+    console.error(mensajeError, error)
+    throw new Error(mensajeError)
+  }
+}
 
 module.exports = {
 	inicializarWSP,
-	enviarMensajeWSP
+	enviarMensajeWSP,
+  statusCheck
 }
