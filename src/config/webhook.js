@@ -17,16 +17,16 @@ const enviarMensajeRecibido=async (numero, mensaje)=>{
             body:JSON.stringify({numero, mensaje, customerID, conversationID})
         }
         const respuesta=await fetch(URL, opciones);
-        if (respuesta.statusText != 'OK'){
-            throw new Error('Error en la respuesta de la API');            
+        if (respuesta.status!==200){
+            const mensajeError=`Error al enviar mensaje al webhook del clientid: ${numero}`;
+            console.error(mensajeError, respuesta);            
         }
         const data=await respuesta.json();
-        console.log('Respuesta de la API'); 
+        console.log('Mensaje enviado al webhook del', numero, 'exitosamente'); 
         console.log(data);       
     }catch(error){
-        const mensajeError=`Error al enviar mensaje a ${numero}`;
+        const mensajeError=`Error al enviar mensaje al webhook del clientid: ${numero}`;
         console.error(mensajeError, error);
-        throw new Error(mensajeError);
     }
 }
 module.exports={
