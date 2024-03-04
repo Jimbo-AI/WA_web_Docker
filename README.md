@@ -34,7 +34,7 @@
 Request
 ```json 
 {
-    "numero":"5215579221449",
+    "numero":"5215511223344",
     "mensaje":"mensaje de prueba\n linea nueva",
     "type":"text"
 }
