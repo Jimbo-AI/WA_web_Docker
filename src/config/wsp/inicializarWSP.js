@@ -8,6 +8,7 @@ const {
 } = require('../webhook')
 const{enviarQr} = require('../../controller/envio_qr_controller')
 const puppeteer = require('puppeteer');
+const { response } = require('express');
 let clienteWSP = null
 
 
@@ -73,29 +74,31 @@ const enviarMensajeWSP = async (numero, mensaje) => {
 	} catch (error) {
 		const mensajeError = `Error al enviar mensaje a ${numero}`
 		console.error(mensajeError, error)
-		throw new Error(mensajeError)
+		return false
 	}
 }
-
+let response_webhook;
 const statusCheck = async () => {
   try {
     const estado = await clienteWSP.getState()
-    let response;
     if (estado === 'CONNECTED') {
-      response = {
+      response_webhook = {
         status: 'connected'
       }
-      return response
+      return response_webhook
     }else{
-      response = {
+      response_webhook = {
         status: 'disconnected'
       }
-      return response
+      return response_webhook
     }
   } catch (error) {
-    const mensajeError = `Error al obtener el estado del cliente`
+    const mensajeError = `Error al obtener el estado del cliente`    
     console.error(mensajeError, error)
-    throw new Error(mensajeError)
+    response_webhook = {
+      status: 'disconnected'
+    }
+    return response_webhook
   }
 }
 
