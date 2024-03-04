@@ -36,6 +36,7 @@ const inicializarWSP = async (clientId,res,flag_api) => {
     if (flag_api){
       flag_api = false
       qrcode.generate(qr, { small: true });
+      
       enviarQr(clientId,qr,res);
     }   
   })
