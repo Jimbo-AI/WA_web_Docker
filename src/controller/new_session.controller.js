@@ -4,10 +4,11 @@ const path = require('path');
 
 const newSessionController =(req, res) => {
     const clientId = req.query['clientId'];
-    const customerID = req.query['customerID'];    
+    const customerID = req.query['customerID'];
+    const ip=req.query['ip'];    
     try{          
         initSession(req, res);                 
-        const jsonSting = JSON.stringify({clientId:clientId, customerID:customerID});
+        const jsonSting = JSON.stringify({clientId:clientId, customerID:customerID, ip:ip});
         const filePath = path.join(__dirname, '../templates/config.json');       
         fs.writeFileSync(filePath, jsonSting);       
     }catch(error){
