@@ -1,7 +1,6 @@
 const { inicializarWSP,getClientWSPsession } = require('./src/config/wsp/inicializarWSP')
 const {apirest} = require('./src/config/apirest')
 
-
 ;(async () => {
     try {
       //await inicializarWSP('5555059804')        

@@ -5,16 +5,18 @@ const filePath = path.join(__dirname, '../templates/config.json');
 const enviarMensajeRecibido=async (numero, mensaje)=>{
     try{
         const customerID = JSON.parse(fs.readFileSync (filePath, 'utf8')).customerID;
+        const ip = JSON.parse(fs.readFileSync (filePath, 'utf8')).ip;
         const conversationID='';
         console.log('Customer ID', customerID);
         console.log('Conversation ID', conversationID);
+        console.log('IP', ip);
         const URL='https://xjbxulvq7rxvpj357gitovanhe0qqxyk.lambda-url.us-east-1.on.aws/webhook/whatsapp_zero'
         const opciones={
             method:'POST',
             headers:{
                 'Content-Type':'application/json'
             },
-            body:JSON.stringify({numero, mensaje, customerID, conversationID})
+            body:JSON.stringify({numero, mensaje, customerID, conversationID, ip})
         }
         const respuesta=await fetch(URL, opciones);
         if (respuesta.status!==200){
