@@ -31,6 +31,24 @@ const enviarMensajeRecibido=async (numero, mensaje)=>{
         console.error(mensajeError, error);
     }
 }
+
+const update_status_bot=async (numero,status)=>{
+    const service_user_id = numero;
+    const URL='https://tvs7rz7cif2yt6thecumq4fyo40jwiom.lambda-url.us-east-1.on.aws/'
+    const opciones={
+        method:'POST',
+        headers:{
+            'Content-Type':'application/json'
+        },
+        body:JSON.stringify({service_user_id, status})
+    }
+    const respuesta=await fetch(URL, opciones);
+    if (respuesta.status!==200){
+        const mensajeError=`Error al actualizar el estado del bot para el client: ${numero}`;
+        console.error(mensajeError, respuesta);            
+    }
+}
 module.exports={
-    enviarMensajeRecibido
+    enviarMensajeRecibido,
+    update_status_bot
 }
