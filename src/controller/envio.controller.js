@@ -3,10 +3,7 @@ const { Buttons } = require('whatsapp-web.js');
 const envioController =(req, res) => {
     const{numero, mensaje,type} = req.body;
     console.log(req.body)
-    let mensaje_out=null
-    const buttons = new Buttons("Hello Button", [{id:'customId',body:'button1'},{body:'button2'},{body:'button3'},{body:'button4'}], 'Hello');
-    const status = statusCheck();    
-    
+    let mensaje_out=null    
     try{        
             if (type=='text'){
                 mensaje_out=mensaje;

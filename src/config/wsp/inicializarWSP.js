@@ -1,10 +1,13 @@
+const fs = require('fs');
+const path = require('path');
+const filePath = path.join(__dirname, '../../templates/config.json');
 const {
 	Client,
 	LocalAuth
 } = require('whatsapp-web.js')
 const qrcode = require('qrcode-terminal')
 const {
-	enviarMensajeRecibido
+	enviarMensajeRecibido,update_status_bot
 } = require('../webhook')
 const{enviarQr} = require('../../controller/envio_qr_controller')
 const puppeteer = require('puppeteer');
@@ -53,8 +56,19 @@ const inicializarWSP = async (clientId,res,flag_api) => {
     console.log(`Cargando: ${porcentaje} - ${mensaje}`)
   })
 
-  clienteWSP.on('ready', () => {
-    console.log('Client is ready!')
+  clienteWSP.on('message_create', (message) => {
+    let clientId = JSON.parse(fs.readFileSync (filePath, 'utf8')).clientId;
+    clientId='521'+clientId;  
+    if (message.fromMe && message.author!='undefined' && message.author.startsWith(clientId)) {
+      number_to = message.to.split('@')[0];
+      if (message.body.includes('🤖🤖')) {
+        console.log('Activar robot')
+        update_status_bot(number_to,true)
+      }else{
+        console.log('Desactivar robot')
+        update_status_bot(number_to,false)
+      }      
+    }    
   })
 
   clienteWSP.on('message', message => {
@@ -80,22 +94,22 @@ const enviarMensajeWSP = async (numero, mensaje) => {
 }
 let response_webhook;
 const statusCheck = async () => {
+  let estado='DISCONNECTED'
   try {
-    const estado = await clienteWSP.getState()
-    if (estado === 'CONNECTED') {
-      response_webhook = {
-        status: 'connected'
-      }
-      return response_webhook
-    }else{
-      response_webhook = {
-        status: 'disconnected'
-      }
-      return response_webhook
-    }
+    estado= await clienteWSP.getState()
+    // console.log(estado)    
   } catch (error) {
     const mensajeError = `Error al obtener el estado del cliente`    
-    console.error(mensajeError, error)
+    // console.error(mensajeError, error)
+    estado='DISCONNECTED'    
+  }
+  console.log(estado)
+  if (estado === 'CONNECTED') {
+    response_webhook = {
+      status: 'connected'
+    }
+    return response_webhook
+  }else{
     response_webhook = {
       status: 'disconnected'
     }
