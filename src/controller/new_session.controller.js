@@ -7,10 +7,10 @@ const newSessionController =(req, res) => {
     const customerID = req.query['customerID'];
     const ip=req.query['ip'];    
     try{          
-        initSession(req, res);                 
         const jsonSting = JSON.stringify({clientId:clientId, customerID:customerID, ip:ip});
         const filePath = path.join(__dirname, '../templates/config.json');       
-        fs.writeFileSync(filePath, jsonSting);       
+        fs.writeFileSync(filePath, jsonSting);
+        initSession(req, res);                                
     }catch(error){
         const errorController= `Error al iniciar sesión`;
         console.error(errorController, error);
