@@ -60,7 +60,7 @@ const inicializarWSP = async (clientId,res,flag_api) => {
     let clientId = JSON.parse(fs.readFileSync (filePath, 'utf8')).clientId;
     clientId='521'+clientId;  
     const author=message.author;    
-    if (message.fromMe && author!='undefined') {
+    if (message.fromMe && author!=='undefined') {
       number_to = message.to.split('@')[0];
       if (message.body.includes('🤖🤖')) {
         console.log('Activar robot')
