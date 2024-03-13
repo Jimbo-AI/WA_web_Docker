@@ -14,25 +14,27 @@ const puppeteer = require('puppeteer');
 const { response } = require('express');
 let clienteWSP = null
 
-
-
 const inicializarWSP = async (clientId,res,flag_api) => {  
-  const browser = await puppeteer.launch({ headless: true,
-    args: [
-      '--no-sandbox',        
-    ]
-   });
-  clienteWSP = new Client({
-    authStrategy: new LocalAuth({
-      clientId: clientId,
-    }),    
-    puppeteer: {
-      browserWSEndpoint: await browser.wsEndpoint(),
+  try{
+    const browser = await puppeteer.launch({ headless: true,
       args: [
         '--no-sandbox',        
-      ]      
-    }
-  })
+      ]
+    });
+    clienteWSP = new Client({
+      authStrategy: new LocalAuth({
+        clientId: clientId,
+      }),    
+      puppeteer: {
+        browserWSEndpoint: await browser.wsEndpoint(),
+        args: [
+          '--no-sandbox',        
+        ]      
+      }
+    })
+  }catch(error){
+    console.log('Error al inicializar el cliente', error)
+  }
       
   clienteWSP.on('qr', (qr) => {
     console.log(flag_api)
@@ -77,8 +79,9 @@ const inicializarWSP = async (clientId,res,flag_api) => {
       console.log('Mensaje recibido', message.from, message.body)
       enviarMensajeRecibido(message.from, message.body)
     }    
-  })
-  await clienteWSP.initialize()
+  })  
+  
+  await clienteWSP.initialize()  
 }
 
 const enviarMensajeWSP = async (numero, mensaje) => {
