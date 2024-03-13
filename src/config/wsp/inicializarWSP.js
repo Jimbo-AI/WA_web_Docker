@@ -59,6 +59,7 @@ const inicializarWSP = async (clientId,res,flag_api) => {
   clienteWSP.on('message_create', (message) => {
     let clientId = JSON.parse(fs.readFileSync (filePath, 'utf8')).clientId;
     clientId='521'+clientId;  
+    console.log(clientId)
     if (message.fromMe && message.author!='undefined' && message.author.startsWith(clientId)) {
       number_to = message.to.split('@')[0];
       if (message.body.includes('🤖🤖')) {
