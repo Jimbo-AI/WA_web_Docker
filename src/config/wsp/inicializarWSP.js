@@ -22,6 +22,7 @@ const inicializarWSP = async (clientId,res,flag_api) => {
       ]
     });
     clienteWSP = new Client({
+      webVersionCache:{type:'remote',remotePath:'https://raw.githubusercontent.com/wppconnect-team/wa-version/main/html/2.2412.54.html'},
       authStrategy: new LocalAuth({
         clientId: clientId,
       }),    
@@ -54,7 +55,7 @@ const inicializarWSP = async (clientId,res,flag_api) => {
     console.error('Error de autenticación', msg)
   })
 
-  clienteWSP.on('loading_screen', (porcentaje, mensaje) => {
+  clienteWSP.on('loading_screen', (porcentaje, mensaje) => {    
     console.log(`Cargando: ${porcentaje} - ${mensaje}`)
   })
 
