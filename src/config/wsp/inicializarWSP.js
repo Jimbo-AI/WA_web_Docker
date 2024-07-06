@@ -22,7 +22,7 @@ const inicializarWSP = async (clientId,res,flag_api) => {
       ]
     });
     clienteWSP = new Client({
-      webVersionCache:{type:'remote',remotePath:'https://raw.githubusercontent.com/wppconnect-team/wa-version/main/html/2.2412.54.html'},
+      //webVersionCache:{type:'remote',remotePath:'https://raw.githubusercontent.com/wppconnect-team/wa-version/8683b0fb9a177dda0dcb6a65a254acb887be45dd/html/2.2412.54.html'},
       authStrategy: new LocalAuth({
         clientId: clientId,
       }),    

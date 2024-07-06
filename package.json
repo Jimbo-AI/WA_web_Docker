@@ -14,7 +14,7 @@
     "mongoose": "^8.1.3",
     "qrcode-terminal": "^0.12.0",
     "socket.io": "^4.7.4",
-    "whatsapp-web.js": "^1.23.0",
+    "whatsapp-web.js": "github:pedroslopez/whatsapp-web.js#webpack-exodus",
     "wwebjs-mongo": "^1.1.0"
   }
 }
