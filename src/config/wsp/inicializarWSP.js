@@ -16,7 +16,8 @@ let clienteWSP = null
 
 const inicializarWSP = async (clientId,res,flag_api) => {  
   try{
-    const browser = await puppeteer.launch({ headless: true,
+    const browser = await puppeteer.launch({ 
+      headless: true,
       args: [
         '--no-sandbox',        
       ]
