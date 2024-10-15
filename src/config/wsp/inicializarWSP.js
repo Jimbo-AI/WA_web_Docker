@@ -19,7 +19,7 @@ const inicializarWSP = async (clientId,res,flag_api) => {
     const browser = await puppeteer.launch({ 
       headless: true,
       args: [
-        '--no-sandbox',        
+        '--no-sandbox', '--disable-setuid-sandbox',        
       ]
     });
     clienteWSP = new Client({
